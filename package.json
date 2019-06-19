@@ -161,5 +161,5 @@
     "eslint-plugin-react": "^7.13.0",
     "less-loader": "^5.0.0"
   },
-  "proxy": "https://api.tiyoukids.com/v1/admin/"
+  "proxy": "https://api.com/v1/admin/"
 }
