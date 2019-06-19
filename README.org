@@ -35,6 +35,39 @@
    #+end_src
    权限配置
 ** API
+*** 代理
+   设置代理,只需在 package.json 中更改 proxy 字段,所有为匹配请求都会被重定向到该路径
+   #+begin_src json
+     {
+       "proxy": "https://api.com/v1/admin"
+     }
+   #+end_src
+*** request 使用
+    #+begin_src javascript
+      import { request } from '../util/request'
+
+      // get
+      const query = {
+        page: 1,
+        pageSize: 10,
+      }
+      request('/user', 'get', query) // GET /user?page=1&pageSize=10
+
+      // post
+      const body = {
+        name: 'xiaoming',
+        passowrd: '66666',
+      }
+      request('/user', 'post', body)
+
+      // header
+      const header = {
+        version: '0.1.0',
+      }
+      request('/user', 'get', query, header)
+    #+end_src
+    全局设置 header,在 src/util/request.js 可以设置
+    
 ** 路由
    在~src/config/route.js~中配置
    #+begin_src javascript
@@ -104,6 +137,23 @@
    页面筛选条件放到 URL 的 query 中
    获取 URL 中的 page 参数
    #+begin_src javascript
-     import { getUrlPage } from 'src/util'
-     const page = getUrlPage()
+     import { getUrlPage, setUrlPage } from 'src/util'
+     setUrlPage(1) // ?page=1
+     const page = getUrlPage() // page=1
    #+end_src
+   获取 URL 中到其他参数
+   #+begin_src javascript
+     import { getUrlQuery, setUrlQuery } from 'src/util'
+     const query = {
+       status: 1,
+       name: 'xiaoming',
+     }
+     setUrlQuery(query) // ?status=1&name=xiaoming
+
+     const { status, name, sex: 1 } = getUrlQuery()
+     // status = 1
+     // name = xiaoming
+     // sex = 1
+
+   #+end_src
+   
