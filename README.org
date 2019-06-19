@@ -1,0 +1,109 @@
+* 运行
+  #+begin_src shell
+    cd react-admin
+    # or npm install
+    yarn
+
+    yarn start # or npm run start
+    yarn build # or npm run build
+  #+end_src
+* 配置
+** 菜单
+   在 config 目录下
+   #+begin_src javascript
+     const menu = [
+       {
+         name: '用户',
+         path: '/user',
+         icon: 'user',
+         permissions: ['admin'], // 权限
+         childrend: [
+           {
+             name: '列表',
+             path: '/user/list',
+             permissions: ['admin'],
+           },
+           {
+             name: '用户',
+             path: '/user/detail/:id',
+             permissions: ['admin'],
+             hide: true, // 不在菜单中显示，为了在用户详情页面可以打开对应的菜单
+           },
+         ],
+       },
+     ]
+   #+end_src
+   权限配置
+** API
+** 路由
+   在~src/config/route.js~中配置
+   #+begin_src javascript
+
+     import { lazy } from 'react'
+
+     // import WithAuth from '../component/WithAuth'
+
+     const Home = lazy(() => import('../views/Home'))
+     const Login = lazy(() => import('../views/Login'))
+     const UserList = lazy(() => import('../views/User/List'))
+
+     const routes = [
+       {
+         path: '/home',
+         component: Home,
+       },
+       {
+         path: '/login',
+         component: Login,
+       },
+       {
+         path: '/user/list',
+         component: UserList,
+       },
+       {
+         path: '/user/:id/detail',
+         component: UserList,
+       },
+       {
+         path: '/profile',
+         component: UserList,
+         permissions: ['permissions'],
+       },
+     ]
+
+     export default routes
+   #+end_src
+** 配置
+   在~src/config/app.js~中可以配置一些基本信息
+   #+begin_src javascript
+     export default = {
+       // 应用名称
+       name: '管理后台',
+       footer: {
+         // 备案号
+         IPC: '管理后台',
+       },
+     }
+   #+end_src
+** 登陆/登出
+   在~src/view/Login/index.js~中设置如下代码：
+   #+begin_src javascript
+     import { setLoginUser, setToken } from '../../util'
+     // 登陆接口
+     import { login } from '../../api'
+
+     const res = await login()
+     const { token, user } = res
+     // user 必须有 name 字段
+     setLoginUser(user)
+     setToken(token)
+
+   #+end_src
+   其中~setLoginUser~是为了在 header 中显示登陆用户的名称(~user.name~)
+** Query
+   页面筛选条件放到 URL 的 query 中
+   获取 URL 中的 page 参数
+   #+begin_src javascript
+     import { getUrlPage } from 'src/util'
+     const page = getUrlPage()
+   #+end_src
