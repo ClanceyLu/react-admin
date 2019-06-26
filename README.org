@@ -1,3 +1,7 @@
+* 介绍
+  使用 react 和 antd 构建的管理后台，没有使用 redux。
+  虽然现在流行趋势是使用 redux，并将 API 封装进 redux，但是在实际开发中（管理后台），redux 并没有帮我解决什么问题，无论是使用 suga 还是 dva，似乎成了炫技的存在。
+  希望开发一个简单可以快速开发，专注于业务的管理后台。
 * 运行
   #+begin_src shell
     cd react-admin
@@ -156,4 +160,37 @@
      // sex = 1
 
    #+end_src
-   
+** 验证
+   验证使用 ~joi~ 
+   如何新增一个验证
+   在 ~validation~ 中新增一个 login.js,
+   #+begin_src javascript
+     import Joi from '@hapi/joi'
+     import validate from '../util/validate'
+
+     const schema = Joi.object().keys({
+       user: Joi.string().alphanum().min(3).max(30).required().label('用户名不合法'),
+       password: Joi.string().min(8).required().label('密码不合法'),
+     })
+
+     export default function validateLogin(auth) {
+       // validate 会验证，如果有错误信息会通过 message 提示 label 到内容
+       return validate(auth, schema)
+     }
+   #+end_src
+   使用 
+   #+begin_src javascript
+     import validateLogin from '../../validation/login'
+     const { user, password } = this.state
+     const data = {
+       user,
+       password,
+     }
+     // validationLogin 会返回 error 和 data, 可以接收并判断错误
+     const { error } = validateLogin(data)
+     if (error) return
+     const params = {
+       data,
+     }
+     const res = await login(params)
+   #+end_src
