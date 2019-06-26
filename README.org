@@ -13,7 +13,7 @@
   #+end_src
 * 配置
 ** 菜单
-   在 config 目录下
+   在 ~config~ 目录下
    #+begin_src javascript
      const menu = [
        {
@@ -40,7 +40,7 @@
    权限配置
 ** API
 *** 代理
-   设置代理,只需在 package.json 中更改 proxy 字段,所有为匹配请求都会被重定向到该路径
+   设置代理,只需在 ~package.json~ 中更改 ~proxy~ 字段,所有为匹配请求都会被重定向到该路径
    #+begin_src json
      {
        "proxy": "https://api.com/v1/admin"
@@ -70,7 +70,7 @@
       }
       request('/user', 'get', query, header)
     #+end_src
-    全局设置 header,在 src/util/request.js 可以设置
+    全局设置 ~header~,在 ~src/util/request.js~ 可以设置
     
 ** 路由
    在 ~src/config/route.js~ 中配置
@@ -111,7 +111,7 @@
      export default routes
    #+end_src
 ** 配置
-   在~src/config/app.js~中可以配置一些基本信息
+   在 ~src/config/app.js~ 中可以配置一些基本信息
    #+begin_src javascript
      export default = {
        // 应用名称
@@ -123,7 +123,7 @@
      }
    #+end_src
 ** 登陆/登出
-   在~src/view/Login/index.js~中设置如下代码：
+   在 ~src/view/Login/index.js~ 中设置如下代码：
    #+begin_src javascript
      import { setLoginUser, setToken } from '../../util'
      // 登陆接口
@@ -136,7 +136,7 @@
      setToken(token)
 
    #+end_src
-   其中~setLoginUser~是为了在 header 中显示登陆用户的名称(~user.name~)
+   其中 ~setLoginUser~ 是为了在 ~header~ 中显示登陆用户的名称(~user.name~)
 ** Query
    页面筛选条件放到 URL 的 query 中
    获取 URL 中的 page 参数
@@ -161,7 +161,7 @@
 
    #+end_src
 ** 验证
-   验证使用 ~joi~ 
+   验证使用 ~joi~
    如何新增一个验证
    在 ~validation~ 中新增一个 login.js,
    #+begin_src javascript
