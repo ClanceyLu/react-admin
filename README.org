@@ -73,7 +73,7 @@
     全局设置 header,在 src/util/request.js 可以设置
     
 ** 路由
-   在~src/config/route.js~中配置
+   在 ~src/config/route.js~ 中配置
    #+begin_src javascript
 
      import { lazy } from 'react'
