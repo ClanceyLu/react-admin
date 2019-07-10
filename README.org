@@ -1,6 +1,5 @@
 * 介绍
-  使用 react 和 antd 构建的管理后台，没有使用 redux。
-  虽然现在流行趋势是使用 redux，并将 API 封装进 redux，但是在实际开发中（管理后台），redux 并没有帮我解决什么问题，无论是使用 suga 还是 dva，似乎成了炫技的存在。
+  使用 react，mobx 和 antd 构建的管理后台，使用 mobx 代替了 redux。
   希望开发一个简单可以快速开发，专注于业务的管理后台。
 * 运行
   #+begin_src shell
